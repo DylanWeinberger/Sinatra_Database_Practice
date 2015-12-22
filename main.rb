@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require './models'
 
-set :database, "sqlite3:newdb.sqlite3"
+configure(:development){set :database, "sqlite3:newdb.sqlite3"}
 
 get "/" do
 	# "Hello World"
@@ -23,13 +23,23 @@ end
 get "/user" do
 
 	params.inspect
-	@user = User.last
-	@user_name = User.last.username
-	@user_id = User.last.id
-	@profile_fname = User.last.profile.fname
+	# @user = User.last
+	@user_name = User.first.username
+	@user_id = User.first.id
+	@profile_fname = User.first.profile.fname
+	@posts = User.first.posts.first
+	# @posts = User.posts
 	# @username = params[:username]
 	# @email = params[:email]
 	# @id = params[:User_id]
 
 	erb :user
 end
+
+get "/post" do
+
+	@post = Post.first
+	@post_author = @post.user.username
+	erb :post
+
+end	

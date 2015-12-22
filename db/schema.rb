@@ -11,13 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222200143) do
+ActiveRecord::Schema.define(version: 20151222210137) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string  "street_name"
+    t.integer "house_number"
+    t.string  "city"
+    t.string  "state"
+    t.integer "zipcode"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string  "text"
+    t.string  "title"
+    t.integer "user_id"
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.string  "fname"
     t.string  "lname"
     t.integer "phone_number"
     t.integer "user_id"
+  end
+
+  create_table "user_addresses", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "address_id"
   end
 
   create_table "users", force: :cascade do |t|
